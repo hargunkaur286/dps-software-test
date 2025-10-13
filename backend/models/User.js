@@ -32,7 +32,10 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    shoppingList: [shoppingListEntrySchema]
+    shoppingList: {
+        type: [shoppingListEntrySchema],
+        default: []
+    }
 }, {
     timestamps: true
 });
