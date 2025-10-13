@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const dbURI = "mongodb://localhost:27017";
+const dbURI = "mongodb://127.0.0.1:27017/buddy";
 const connectDB = async () => {
     try {
         await mongoose.connect(dbURI);
