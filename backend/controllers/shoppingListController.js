@@ -1,4 +1,5 @@
-const User = require("../models/User");
+const {User, shoppingListEntryValidator} = require("../models/User");
+const z = require("zod");
 
 const getShoppingList = async (req, res) => {
     const {userId} = req.params;
@@ -10,16 +11,25 @@ const getShoppingList = async (req, res) => {
 }
 
 const createShoppingListEntry = async (req, res) => {
-    const {item, quantity} = req.body;
-    const {userId} = req.params;
-    const user = await User.findById(userId);
-    if (!user) {
-        return res.status(404).json({message: "User not found."});
+    try {
+        const entryData = shoppingListEntryValidator.parse(req.body);
+        const {userId} = req.params;
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({message: "User not found."});
+        }
+        user.shoppingList.push(entryData);
+        await user.save();
+        const newEntry = user.shoppingList[user.shoppingList.length - 1];
+        res.status(201).json(newEntry);
     }
-    user.shoppingList.push({item, quantity});
-    await user.save();
-    const newEntry = user.shoppingList[user.shoppingList.length - 1];
-    res.status(201).json(newEntry);
+    catch (err) {
+        if (err instanceof z.ZodError) {
+            return res.status(400).json({ errors: err.message });
+        }
+        console.error(err);
+        res.status(500).json({ error: "Internal server error" });
+    }
 }
 
 module.exports = {getShoppingList, createShoppingListEntry};
