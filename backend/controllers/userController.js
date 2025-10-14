@@ -31,4 +31,13 @@ const createUser = async (req, res) => {
     }
 }
 
-module.exports = {getUsers, getUser, createUser};
+const deleteUser = async (req, res) => {
+    const {userId} = req.params;
+    const user = await User.findByIdAndDelete(userId);
+    if (!user) {
+        return res.status(404).json({message: "User not found."});
+    }
+    res.json(user);
+}
+
+module.exports = {getUsers, getUser, createUser, deleteUser};

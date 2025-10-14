@@ -1,4 +1,4 @@
-const {User, shoppingListEntryValidator} = require("../models/User");
+const {User, ShoppingListEntry, shoppingListEntryValidator} = require("../models/User");
 const z = require("zod");
 
 const getShoppingList = async (req, res) => {
@@ -32,4 +32,13 @@ const createShoppingListEntry = async (req, res) => {
     }
 }
 
-module.exports = {getShoppingList, createShoppingListEntry};
+const deleteShoppingListEntry = async (req, res) => {
+    const {listId} = req.params;
+    const listEntry = await ShoppingListEntry.findByIdAndDelete(listId);
+    if (!listEntry) {
+        return res.status(404).json({message: "Entry not found."});
+    }
+    res.json(listEntry);
+}
+
+module.exports = {getShoppingList, createShoppingListEntry, deleteShoppingListEntry};

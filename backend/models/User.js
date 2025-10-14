@@ -54,4 +54,5 @@ const userValidator = z.object({
 });
 
 const User = mongoose.model("User", userSchema);
-module.exports = {User, shoppingListEntryValidator, userValidator};
+const ShoppingListEntry = mongoose.model("ShoppingListEntry", shoppingListEntrySchema);
+module.exports = {User, ShoppingListEntry, shoppingListEntryValidator, userValidator};
