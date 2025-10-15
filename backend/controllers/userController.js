@@ -15,6 +15,15 @@ export const getUser = async (req, res) => {
     res.json(user);
 }
 
+export const getUserByName = async (req, res) => {
+    const {username} = req.params;
+    const user = await User.findOne({username});
+    if (!user) {
+        return res.status(404).json({message: "User not found."});
+    }
+    res.json(user);
+}
+
 export const createUser = async (req, res) => {
     try {
         const userData = userValidator.parse(req.body);
