@@ -1,9 +1,9 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const connectDB = require("./config/db");
-const userRoutes = require("./routes/userRoutes");
-const shoppingListRoutes = require("./routes/shoppingListRoutes");
+import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
+import connectDB from "./config/db.js";
+import userRoutes from "./routes/userRoutes.js";
+import shoppingListRoutes from "./routes/shoppingListRoutes.js";
 
 connectDB();
 const app = express();

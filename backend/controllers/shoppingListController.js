@@ -1,7 +1,7 @@
-const {User, ShoppingListEntry, shoppingListEntryValidator} = require("../models/User");
-const z = require("zod");
+import {User, ShoppingListEntry, shoppingListEntryValidator} from "../models/User.js";
+import z from "zod";
 
-const getShoppingList = async (req, res) => {
+export const getShoppingList = async (req, res) => {
     const {userId} = req.params;
     const user = await User.findById(userId);
     if (!user) {
@@ -10,7 +10,7 @@ const getShoppingList = async (req, res) => {
     res.json(user.shoppingList);
 }
 
-const createShoppingListEntry = async (req, res) => {
+export const createShoppingListEntry = async (req, res) => {
     try {
         const entryData = shoppingListEntryValidator.parse(req.body);
         const {userId} = req.params;
@@ -32,7 +32,7 @@ const createShoppingListEntry = async (req, res) => {
     }
 }
 
-const deleteShoppingListEntry = async (req, res) => {
+export const deleteShoppingListEntry = async (req, res) => {
     const {listId} = req.params;
     const listEntry = await ShoppingListEntry.findByIdAndDelete(listId);
     if (!listEntry) {
@@ -40,5 +40,3 @@ const deleteShoppingListEntry = async (req, res) => {
     }
     res.json(listEntry);
 }
-
-module.exports = {getShoppingList, createShoppingListEntry, deleteShoppingListEntry};

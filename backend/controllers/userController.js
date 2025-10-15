@@ -1,12 +1,12 @@
-const {User, userValidator} = require("../models/User");
-const z = require("zod");
+import {User, userValidator} from "../models/User.js";
+import z from "zod";
 
-const getUsers = async (req, res) => {
+export const getUsers = async (req, res) => {
     const users = await User.find();
     res.json(users);
 }
 
-const getUser = async (req, res) => {
+export const getUser = async (req, res) => {
     const {userId} = req.params;
     const user = await User.findById(userId);
     if (!user) {
@@ -15,7 +15,7 @@ const getUser = async (req, res) => {
     res.json(user);
 }
 
-const createUser = async (req, res) => {
+export const createUser = async (req, res) => {
     try {
         const userData = userValidator.parse(req.body);
         const user = new User(userData);
@@ -31,7 +31,7 @@ const createUser = async (req, res) => {
     }
 }
 
-const deleteUser = async (req, res) => {
+export const deleteUser = async (req, res) => {
     const {userId} = req.params;
     const user = await User.findByIdAndDelete(userId);
     if (!user) {
@@ -39,5 +39,3 @@ const deleteUser = async (req, res) => {
     }
     res.json(user);
 }
-
-module.exports = {getUsers, getUser, createUser, deleteUser};

@@ -1,7 +1,7 @@
-const express = require("express");
-const router = express.Router();
-const {getShoppingList, createShoppingListEntry, deleteShoppingListEntry} = require("../controllers/shoppingListController");
+import express from "express";
+import {getShoppingList, createShoppingListEntry, deleteShoppingListEntry} from "../controllers/shoppingListController.js";
 
+const router = express.Router();
 router.route("/:userId")
     .get(getShoppingList)
     .post(createShoppingListEntry)
@@ -9,4 +9,4 @@ router.route("/:userId")
 router.route("/:listId")
     .delete(deleteShoppingListEntry);
 
-module.exports = router;
+export default router;
