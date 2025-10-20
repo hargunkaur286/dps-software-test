@@ -33,10 +33,16 @@ export const createShoppingListEntry = async (req, res) => {
 }
 
 export const deleteShoppingListEntry = async (req, res) => {
-    const {listId} = req.params;
-    const listEntry = await ShoppingListEntry.findByIdAndDelete(listId);
+    const {userId, listId} = req.params;
+    const user = await User.findById(userId);
+    if (!user) {
+        return res.status(404).json({message: "Entry not found."});
+    }
+    const listEntry = user.shoppingList.id(listId);
     if (!listEntry) {
         return res.status(404).json({message: "Entry not found."});
     }
+    listEntry.remove();
+    await user.save();
     res.json(listEntry);
 }

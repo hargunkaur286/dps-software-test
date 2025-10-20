@@ -1,12 +1,17 @@
 import express from "express";
-import {getShoppingList, createShoppingListEntry, deleteShoppingListEntry} from "../controllers/shoppingListController.js";
+import {getShoppingLists, getShoppingList, createShoppingList, createShoppingListEntry, deleteShoppingList, deleteShoppingListEntry} from "../controllers/shoppingListController.js";
 
 const router = express.Router();
 router.route("/:userId")
-    .get(getShoppingList)
-    .post(createShoppingListEntry)
+  .get(getShoppingLists)
+  .post(createShoppingList)
 
 router.route("/:listId")
-    .delete(deleteShoppingListEntry);
+  .get(getShoppingList)
+  .post(createShoppingListEntry)
+  .delete(deleteShoppingList);
+
+router.route("/:listId/:entryId")
+  .delete(deleteShoppingListEntry);
 
 export default router;

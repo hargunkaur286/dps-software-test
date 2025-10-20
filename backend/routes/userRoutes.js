@@ -3,14 +3,14 @@ import {getUsers, createUser, getUser, getUserByName, deleteUser} from "../contr
 
 const router = express.Router();
 router.route("/")
-    .get(getUsers)
-    .post(createUser);
+  .get(getUsers)
+  .post(createUser);
 
 router.route("/username/:username")
-    .get(getUserByName);
+  .get(getUserByName);
 
 router.route("/:userId")
-    .get(getUser)
-    .delete(deleteUser);
+  .get(getUser)
+  .delete(deleteUser);
 
 export default router;

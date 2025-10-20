@@ -2,18 +2,25 @@ import { useState } from "react";
 
 export default function Register({ setView }) {
   const [form, setForm] = useState({ username: "", password: "", email: "" });
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await fetch("http://127.0.0.1:3000/users", {
+      const res = await fetch("http://127.0.0.1:3000/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
-      alert("Registration successful!");
-      setForm({ username: "", password: "", email: "" });
-      setView("home");
+      const data = await res.text();
+      if (res.ok) {
+        setForm({ username: "", password: "", email: "" });
+        setView("home");
+      }
+      else {
+        setErrorMessage(data);
+        setForm({ username: "", password: "", email: "" });
+      }
     } catch (err) {
       console.error(err);
       alert("Error registering user");
@@ -22,6 +29,7 @@ export default function Register({ setView }) {
 
   return (
     <div style={styles.container}>
+      {errorMessage}
       <h2>Register</h2>
       <form onSubmit={handleSubmit} style={styles.form}>
         <input
