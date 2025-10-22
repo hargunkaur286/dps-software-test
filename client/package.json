@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy" : "https://chat-app-server-flame.vercel.app",
+  "proxy": "https://chat-app-server-flame.vercel.app",
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.3",
     "@testing-library/jest-dom": "^5.17.0",
@@ -17,11 +17,12 @@
     "react-redux": "^9.1.1",
     "react-router-dom": "^6.23.0",
     "react-scripts": "5.0.1",
+    "serve": "^14.2.5",
     "socket.io-client": "^4.7.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "serve -s build",
     "build": "CI=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
