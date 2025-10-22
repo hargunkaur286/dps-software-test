@@ -21,7 +21,7 @@ const app = express()
 /*** ✅ Enable CORS for normal HTTP routes */
 app.use(
   cors({
-    origin: "http://localhost:3000", // 👈 no slash at the end
+    origin: "https://hgw008k0sgcgwk4cgoww0ook.rfs.dpschool.app", // 👈 no slash at the end
     credentials: true,
   })
 );
@@ -33,7 +33,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000", // 👈 same here, no slash
+    origin: "https://hgw008k0sgcgwk4cgoww0ook.rfs.dpschool.app/", // 👈 same here, no slash
     credentials: true,
   },
 });
