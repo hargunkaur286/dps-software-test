@@ -47,32 +47,32 @@ const RegisterPage = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+  e.preventDefault();
 
-    const URL = `${process.env.REACT_APP_BACKEND_URL}/api/register`;
+  const URL = `${process.env.REACT_APP_BACKEND_URL}/api/register`;
 
-    try {
-      const response = await axios.post(URL, data);
-      console.log("response", response);
+  try {
+    const response = await axios.post(URL, data);
+    console.log("response", response);
 
-      toast.success(response.data.message);
+    toast.success(response.data.message);
 
-      if (response.data.success) {
-        setData({
-          name: "",
-          email: "",
-          password: "",
-          profile_pic: "",
-        });
+    if (response.data.success) {
+      setData({
+        name: "",
+        email: "",
+        password: "",
+        profile_pic: "",
+      });
 
-        navigate("/email");
-      }
-    } catch (error) {
-      toast.error(error?.response?.data?.message);
+      // Wait a short moment before navigating
+      setTimeout(() => navigate("/email"), 200);
     }
-    console.log("data", data);
-  };
+  } catch (error) {
+    toast.error(error?.response?.data?.message || "Something went wrong");
+  }
+};
+
 
   return (
     <div className="mt-5">
