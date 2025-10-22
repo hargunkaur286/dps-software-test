@@ -14,19 +14,19 @@ app.use(express.json());
 app.use("/users", userRoutes);
 app.use("/shoppinglist", shoppingListRoutes);
 app.get("/", (req, res) => {
-    res.send("App started");
+  res.send("App started");
 });
 
 app.listen(port, () => {
-    console.log(`Server started at http://localhost:${port}`);
+  console.log(`Server started at http://localhost:${port}`);
 });
 
 const shutdown = async () => {
-    console.log("Shutting down server.");
-    server.close(async () => {
-        await mongoose.connection.close(false);
-        process.exit(0);
-    });
+  console.log("Shutting down server.");
+  server.close(async () => {
+      await mongoose.connection.close(false);
+      process.exit(0);
+  });
 };
 
 process.on("SIGINT", () => shutdown());
